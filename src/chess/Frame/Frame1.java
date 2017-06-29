@@ -5,8 +5,6 @@
  */
 package chess.Frame;
 
-import chess.Piezas.Dama;
-import chess.Piezas.Peon;
 import chess.Tablero;
 
 import java.awt.BorderLayout;
@@ -15,7 +13,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-//import java.awt.event.MouseMotionListener;
 import javax.swing.*;
 
 /**
@@ -49,11 +46,10 @@ public class Frame1 implements MouseListener {
         ventana.addMouseListener(this);
         ventana.setSize(altura, anchura);
         marco.add(ventana);
-
-        //JLabel emptyLabel = new JLabel("");
-        // emptyLabel.setPreferredSize(new Dimension(altura, anchura));
-        // marco.getContentPane().add(emptyLabel, BorderLayout.CENTER);
-        //marco.pack();
+        
+        MouseEvent e = new MouseEvent(marco, 0, 0, 1, x, y, 1, selecc);
+        this.mouseClicked(e);
+        this.mouseClicked(e);
     }
 
     @Override
