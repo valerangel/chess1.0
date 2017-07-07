@@ -115,7 +115,7 @@ public class Peon extends Pieza {
     }
 
     private int elegir() {
-        String[] opciones = {"Dama", "Torre", "Alfil", "Caballo"};
+        String[] opciones = {"Reina", "Torre", "Alfil", "Caballo"};
         int eleccion = JOptionPane.showOptionDialog(null, "Elige en qué convertir el peón",
                 "Elige", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
         return eleccion;
