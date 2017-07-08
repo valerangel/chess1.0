@@ -25,7 +25,7 @@ public class Frame1 implements MouseListener {
     private boolean selecc;
     JPanel ventana;
     private int x, y;
-    Tablero tab;
+    private Tablero tab;
 
     public Frame1(Tablero tab) {
         this.tab = tab;
@@ -33,8 +33,8 @@ public class Frame1 implements MouseListener {
     }
 
     private void setup() {
-        selecc = false;
-        int n = 760;
+          selecc = false;
+        int n = 720;
         int altura = n;
         int anchura = n;
         ventana = new JPanel(new BorderLayout());

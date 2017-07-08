@@ -109,8 +109,8 @@ public class Tablero {
 
     public void convertir(int elec, int corX, int corY, boolean color) {
         switch (elec) {
-            case 0:
-                this.casillas[corX][corY] = new Dama(this, corX, corY, color);
+            case 3:
+                this.casillas[corX][corY] = new Caballo(this, corX, corY, color);
                 break;
             case 1:
                 this.casillas[corX][corY] = new Torre(this, corX, corY, color);
@@ -119,7 +119,7 @@ public class Tablero {
                 this.casillas[corX][corY] = new Alfil(this, corX, corY, color);
                 break;
             default:
-                this.casillas[corX][corY] = new Caballo(this, corX, corY, color);
+                this.casillas[corX][corY] = new Dama(this, corX, corY, color);
                 break;
         }
 
