@@ -18,7 +18,6 @@ public abstract class Pieza {
     protected Tablero tab;
     protected int corX;
     protected int corY;
-    //True = Blanco,   False = Negro
     protected Color color;
     protected ImageIcon img;
     protected boolean enroque;
