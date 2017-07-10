@@ -5,22 +5,20 @@
  */
 package chess.Frame;
 
+import chess.Piezas.*;
 import chess.Tablero;
 
-import java.awt.BorderLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.*;
 
 /**
  * @author Angel
  */
 public class Frame1 implements MouseListener {
 
-    //private JDialog dialogo;
     private JFrame marco;
     private boolean selecc;
     JPanel ventana;
@@ -33,20 +31,18 @@ public class Frame1 implements MouseListener {
     }
 
     private void setup() {
-          selecc = false;
+        selecc = false;
         int n = 720;
-        int altura = n;
-        int anchura = n;
         ventana = new JPanel(new BorderLayout());
         marco = new JFrame("Tablero");
         marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        marco.setSize(altura, anchura);
+        marco.setSize(n, n);
 
         marco.setVisible(true);
         ventana.addMouseListener(this);
-        ventana.setSize(altura, anchura);
+        ventana.setSize(n, n);
         marco.add(ventana);
-        
+
         MouseEvent e = new MouseEvent(marco, 0, 0, 1, x, y, 1, selecc);
         this.mouseClicked(e);
         this.mouseClicked(e);
@@ -54,30 +50,34 @@ public class Frame1 implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        //1er click
+
         if (!selecc) {
-            this.x = e.getX() * 8 / ventana.getWidth();
-            this.y = e.getY() * 8 / ventana.getHeight();
-            this.paintSelec();
-            if (this.tab.hayPieza(x, y) && this.tab.getPieza(x, y).getColor() == this.tab.getTurno()) {
-                selecc = !selecc;
-                comprobarMov(x, y);
-
-            }
-
-            //2o click
+            doFirstClick(e);
         } else {
-            int xn = e.getX() * 8 / ventana.getWidth();
-            int yn = e.getY() * 8 / ventana.getHeight();
+            doSecondClick(e);
+        }
+    }
 
-            if (x != xn || y != yn) {
-                this.tab.mover(x, y, xn, yn);
-            }
-
+    private void doFirstClick(MouseEvent e) {
+        this.x = e.getX() * Tablero.OCHO / ventana.getWidth();
+        this.y = e.getY() * Tablero.OCHO / ventana.getHeight();
+        this.paintSelec();
+        if (this.tab.hayPieza(x, y) && (this.tab.getPieza(x, y).getColor() == chess.Piezas.Color.RESOURCE_CON_COLOR) == this.tab.getTurno()) {
             selecc = !selecc;
-            this.paint();
+            comprobarMov(x, y);
+        }
+    }
+
+    private void doSecondClick(MouseEvent e) {
+        int xn = e.getX() * Tablero.OCHO / ventana.getWidth();
+        int yn = e.getY() * Tablero.OCHO / ventana.getHeight();
+
+        if (x != xn || y != yn) {
+            this.tab.mover(x, y, xn, yn);
         }
 
+        selecc = !selecc;
+        this.paint();
     }
 
     @Override
@@ -96,65 +96,65 @@ public class Frame1 implements MouseListener {
     public void mouseExited(MouseEvent e) {
     }
 
-    public void paint() {
-        //this.ventana.repaint();
+    private void paint() {
         Graphics g = ventana.getGraphics();
         g.setColor(Color.white);
         g.fillRect(0, 0, ventana.getWidth(), ventana.getHeight());
-        //g.setColor(Color.black);
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if ((j + i) % 2 == 1) {
-                    g.setColor(Color.gray);
-                    g.fillRect(i * ventana.getWidth() / 8, j * ventana.getHeight() / 8,
-                            ventana.getWidth() / 8, ventana.getHeight() / 8);
-                }
-
-                if (this.tab.hayPieza(i, j)) {
-                    this.pintarPieza(i, j);
-                }
-
+        for (int i = 0; i < Tablero.OCHO; i++) {
+            for (int j = 0; j < Tablero.OCHO; j++) {
+                this.pintarCasilla(i, j);
             }
         }
 
     }
 
-    public void paintSelec() {
+    private void pintarCasilla(int i, int j) {
+        if ((j + i) % 2 == 1) {
+            Graphics g = ventana.getGraphics();
+            g.setColor(Color.gray);
+            g.fillRect(i * ventana.getWidth() / Tablero.OCHO, j * ventana.getHeight() / Tablero.OCHO,
+                    ventana.getWidth() / Tablero.OCHO, ventana.getHeight() / Tablero.OCHO);
+        }
+
+        if (this.tab.hayPieza(i, j)) {
+            this.pintarPieza(i, j);
+        }
+    }
+
+    private void paintSelec() {
         this.paint();
         Graphics g = ventana.getGraphics();
+        //Brown
         g.setColor(new Color(200, 200, 150));
         if (tab.getTurno()) {
             g.setColor(Color.CYAN);
         }
-        g.fillRect(x * ventana.getWidth() / 8, y * ventana.getHeight() / 8,
-                ventana.getWidth() / 8, ventana.getHeight() / 8);
+        g.fillRect(x * ventana.getWidth() / Tablero.OCHO, y * ventana.getHeight() / Tablero.OCHO,
+                ventana.getWidth() / Tablero.OCHO, ventana.getHeight() / Tablero.OCHO);
         if (this.tab.hayPieza(x, y)) {
             pintarPieza(x, y);
         }
     }
 
     private void pintarPieza(int i, int j) {
-        /* c = Color.white;
-        if ((i + j) % 2 == 1) {
-            c = Color.gray;
-        }*/
+
         Graphics g = ventana.getGraphics();
+        int corrector = 4;
         Image image = (this.tab.getPieza(i, j)).getImageIcon().getImage();
-        //img.paintIcon(ventana, g, i * ventana.getWidth() / 8, j * ventana.getHeight() /8);
-        g.drawImage(image, i * ventana.getWidth() / 8 + 4, j * ventana.getHeight() / 8 + 4,
-                ventana.getWidth() / 8 - 8, ventana.getHeight() / 8 - 8, marco);
+        g.drawImage(image, i * ventana.getWidth() / Tablero.OCHO + corrector, j * ventana.getHeight() / Tablero.OCHO + corrector,
+                ventana.getWidth() / Tablero.OCHO - 2 * corrector, ventana.getHeight() / Tablero.OCHO - 2 * corrector, marco);
     }
 
     private void comprobarMov(int x, int y) {
         Graphics g = ventana.getGraphics();
-        for (int j = 0; j < 8; j++) {
-            for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < Tablero.OCHO; j++) {
+            for (int i = 0; i < Tablero.OCHO; i++) {
                 if (this.tab.getPieza(x, y).puedeMover(i, j)) {
-                    //Rojo medio transparente
+                    //low green
                     Color c = new Color(0, 255, 0, 50);
                     g.setColor(c);
-                    g.fillRect(i * ventana.getWidth() / 8, j * ventana.getHeight() / 8,
-                            ventana.getWidth() / 8, ventana.getHeight() / 8);
+                    g.fillRect(i * ventana.getWidth() / Tablero.OCHO, j * ventana.getHeight() / Tablero.OCHO,
+                            ventana.getWidth() / Tablero.OCHO, ventana.getHeight() / Tablero.OCHO);
                 }
                 System.out.println("");
             }

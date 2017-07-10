@@ -19,11 +19,11 @@ public abstract class Pieza {
     protected int corX;
     protected int corY;
     //True = Blanco,   False = Negro
-    protected boolean color;
+    protected Color color;
     protected ImageIcon img;
     protected boolean enroque;
 
-    public Pieza(Tablero tab, int corX, int corY, boolean color) {
+    public Pieza(Tablero tab, int corX, int corY, Color color) {
         this.tab = tab;
         this.corX = corX;
         this.corY = corY;
@@ -49,7 +49,7 @@ public abstract class Pieza {
         return false;
     }
 
-    public boolean getColor() {
+    public Color getColor() {
         return this.color;
     }
 
@@ -64,7 +64,7 @@ public abstract class Pieza {
         tabl.moverSA(this.corX, this.corY, x, y);
         //Si es blanca
         int x1, y1;
-        if (this.color) {
+        if (this.color == Color.RESOURCE_CON_COLOR) {
             x1 = tabl.getBrey()[0];
             y1 = tabl.getBrey()[1];
         } else {
@@ -79,17 +79,6 @@ public abstract class Pieza {
                 }
             }
         }
-        
-       /* for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if(tabl.hayPieza(i, j) && tabl.getPieza(i, j) instanceof Rey 
-                        && tabl.getPieza(i, j).getColor() == this.color){
-                    if(this.tab.amenaza(i, j, this.color)){
-                        return true;
-                    }
-                }
-            }
-        }*/
         return false;
     }
 }

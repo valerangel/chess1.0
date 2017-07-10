@@ -13,10 +13,10 @@ import chess.Tablero;
  */
 public class Caballo extends Pieza {
 
-    public Caballo(Tablero tab, int corX, int corY, boolean color) {
+    public Caballo(Tablero tab, int corX, int corY, Color color) {
         super(tab, corX, corY, color);
         //blanca
-        if (color) {
+        if (color == Color.RESOURCE_CON_COLOR) {
             img = new javax.swing.ImageIcon(getClass().getResource("/icon/bcab.png"));
             //negra
         } else {

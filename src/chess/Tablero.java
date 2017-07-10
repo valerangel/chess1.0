@@ -17,41 +17,42 @@ public class Tablero {
     private int[] brey;
     private int[] nrey;
     private boolean tablero;
+    public static int OCHO = 8;
 
     public Tablero() {
         this.tablero = true;
         this.casillas = new Pieza[8][8];
         //Ponemos los peones
         for (int i = 0; i < 8; i++) {
-            casillas[i][1] = new Peon(this, i, 1, false);
-            casillas[i][6] = new Peon(this, i, 6, true);
+            casillas[i][1] = new Peon(this, i, 1, Color.RESOURCE_SIN_COLOR);
+            casillas[i][6] = new Peon(this, i, 6, Color.RESOURCE_CON_COLOR);
         }
-        casillas[0][0] = new Torre(this, 0, 0, false);
-        casillas[1][0] = new Caballo(this, 1, 0, false);
-        casillas[2][0] = new Alfil(this, 2, 0, false);
-        casillas[3][0] = new Dama(this, 3, 0, false);
+        casillas[0][0] = new Torre(this, 0, 0, Color.RESOURCE_SIN_COLOR);
+        casillas[1][0] = new Caballo(this, 1, 0, Color.RESOURCE_SIN_COLOR);
+        casillas[2][0] = new Alfil(this, 2, 0, Color.RESOURCE_SIN_COLOR);
+        casillas[3][0] = new Dama(this, 3, 0, Color.RESOURCE_SIN_COLOR);
 
-        casillas[4][0] = new Rey(this, 4, 0, false);
+        casillas[4][0] = new Rey(this, 4, 0, Color.RESOURCE_SIN_COLOR);
         this.nrey = new int[2];
         nrey[0] = 4;
         nrey[1] = 0;
 
-        casillas[5][0] = new Alfil(this, 5, 0, false);
-        casillas[6][0] = new Caballo(this, 6, 0, false);
-        casillas[7][0] = new Torre(this, 7, 0, false);
+        casillas[5][0] = new Alfil(this, 5, 0, Color.RESOURCE_SIN_COLOR);
+        casillas[6][0] = new Caballo(this, 6, 0, Color.RESOURCE_SIN_COLOR);
+        casillas[7][0] = new Torre(this, 7, 0, Color.RESOURCE_SIN_COLOR);
 
-        casillas[0][7] = new Torre(this, 0, 7, true);
-        casillas[1][7] = new Caballo(this, 1, 7, true);
-        casillas[2][7] = new Alfil(this, 2, 7, true);
-        casillas[3][7] = new Dama(this, 3, 7, true);
+        casillas[0][7] = new Torre(this, 0, 7, Color.RESOURCE_CON_COLOR);
+        casillas[1][7] = new Caballo(this, 1, 7, Color.RESOURCE_CON_COLOR);
+        casillas[2][7] = new Alfil(this, 2, 7, Color.RESOURCE_CON_COLOR);
+        casillas[3][7] = new Dama(this, 3, 7, Color.RESOURCE_CON_COLOR);
 
-        casillas[4][7] = new Rey(this, 4, 7, true);
+        casillas[4][7] = new Rey(this, 4, 7, Color.RESOURCE_CON_COLOR);
         this.brey = new int[2];
         brey[0] = 4;
         brey[1] = 7;
-        casillas[5][7] = new Alfil(this, 5, 7, true);
-        casillas[6][7] = new Caballo(this, 6, 7, true);
-        casillas[7][7] = new Torre(this, 7, 7, true);
+        casillas[5][7] = new Alfil(this, 5, 7, Color.RESOURCE_CON_COLOR);
+        casillas[6][7] = new Caballo(this, 6, 7, Color.RESOURCE_CON_COLOR);
+        casillas[7][7] = new Torre(this, 7, 7, Color.RESOURCE_CON_COLOR);
 
         turno = true;
 
@@ -67,7 +68,7 @@ public class Tablero {
     }
 
     public void mover(int xIni, int yIni, int xFin, int yFin) {
-        if (this.hayPieza(xIni, yIni) && this.casillas[xIni][yIni].getColor() == turno
+        if (this.hayPieza(xIni, yIni) && (this.casillas[xIni][yIni].getColor() == Color.RESOURCE_CON_COLOR) == turno
                 && this.casillas[xIni][yIni].puedeMover(xFin, yFin)) {
 
             this.casillas[xFin][yFin] = this.casillas[xIni][yIni];
@@ -97,7 +98,7 @@ public class Tablero {
     }
 
     public void moverSA(int xIni, int yIni, int xFin, int yFin) {
-        if (this.hayPieza(xIni, yIni) && this.casillas[xIni][yIni].getColor() == turno
+        if (this.hayPieza(xIni, yIni) && this.casillas[xIni][yIni].getColor()== Color.RESOURCE_CON_COLOR == turno
                 && this.casillas[xIni][yIni].puedeMoverSA(xFin, yFin)) {
 
             this.casillas[xFin][yFin] = this.casillas[xIni][yIni];
@@ -107,7 +108,7 @@ public class Tablero {
         }
     }
 
-    public void convertir(int elec, int corX, int corY, boolean color) {
+    public void convertir(int elec, int corX, int corY, Color color) {
         switch (elec) {
             case 3:
                 this.casillas[corX][corY] = new Caballo(this, corX, corY, color);
@@ -130,7 +131,7 @@ public class Tablero {
     public boolean amenaza(int x, int y, boolean color) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (this.hayPieza(i, j) && this.casillas[i][j].getColor() != color
+                if (this.hayPieza(i, j) && this.casillas[i][j].getColor()== Color.RESOURCE_CON_COLOR != color
                         && this.casillas[i][j].puedeMoverSA(x, y) && !(this.casillas[i][i] instanceof Rey)) {
                     return true;
                 }

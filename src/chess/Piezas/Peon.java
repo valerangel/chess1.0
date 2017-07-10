@@ -16,10 +16,10 @@ public class Peon extends Pieza {
 
     private boolean primerMov;
 
-    public Peon(Tablero tab, int corX, int corY, boolean color) {
+    public Peon(Tablero tab, int corX, int corY, Color color) {
         super(tab, corX, corY, color);
         //blanca
-        if (color) {
+        if (color== Color.RESOURCE_CON_COLOR) {
             img = new javax.swing.ImageIcon(getClass().getResource("/icon/bpawn.png"));
             //negra
         } else {
@@ -42,7 +42,7 @@ public class Peon extends Pieza {
         }
 
         //Si avanza 1 hacia abajo  y Si es blanco  o  avanza 1 hacia arria  y es negro
-        if ((this.corY - corY == 1 && this.color) || (corY - this.corY == 1 && !this.color)) {
+        if ((this.corY - corY == 1 && this.color== Color.RESOURCE_CON_COLOR) || (corY - this.corY == 1 && this.color!= Color.RESOURCE_CON_COLOR)) {
             //Si se mueve en diagonal y hay pieza
             if (Math.abs(this.corX - corX) == 1 && this.tab.hayPieza(corX, corY)) {
                 return true;
@@ -52,7 +52,7 @@ public class Peon extends Pieza {
             }
         }
 
-        if (((this.corY - corY == 2 && this.color) || (corY - this.corY == 2 && !this.color)) && primerMov) {
+        if (((this.corY - corY == 2 && this.color== Color.RESOURCE_CON_COLOR) || (corY - this.corY == 2 && this.color!= Color.RESOURCE_CON_COLOR)) && primerMov) {
             if (this.corX - corX == 0 && !this.tab.hayPieza(corX, corY)) {
                 return true;
             }
@@ -71,7 +71,7 @@ public class Peon extends Pieza {
         }
 
         //Si avanza 1 hacia abajo  y Si es blanco  o  avanza 1 hacia arria  y es negro
-        if ((this.corY - corY == 1 && this.color) || (corY - this.corY == 1 && !this.color)) {
+        if ((this.corY - corY == 1 && this.color== Color.RESOURCE_CON_COLOR) || (corY - this.corY == 1 && this.color!= Color.RESOURCE_CON_COLOR)) {
             //Si se mueve en diagonal y hay pieza
             if (Math.abs(this.corX - corX) == 1 && this.tab.hayPieza(corX, corY)) {
                 return true;
@@ -81,7 +81,7 @@ public class Peon extends Pieza {
             }
         }
 
-        if (((this.corY - corY == 2 && this.color) || (corY - this.corY == 2 && !this.color)) && primerMov) {
+        if (((this.corY - corY == 2 && this.color== Color.RESOURCE_CON_COLOR) || (corY - this.corY == 2 && this.color!= Color.RESOURCE_CON_COLOR)) && primerMov) {
             if (this.corX - corX == 0 && !this.tab.hayPieza(corX, corY)) {
                 return true;
             }
@@ -95,9 +95,9 @@ public class Peon extends Pieza {
         this.corX = corX;
         this.corY = corY;
         primerMov = false;
-        if (((color && corY == 0) || (!color && corY == 7)) && this.tab.getFalsoTablero()) {
+        if (((color== Color.RESOURCE_CON_COLOR && corY == 0) || (color!= Color.RESOURCE_CON_COLOR && corY == 7)) && this.tab.getFalsoTablero()) {
             int eleccion = this.elegir();
-            this.tab.convertir(eleccion, corX, corY, this.color);
+            this.tab.convertir(eleccion, corX, corY, this.color );
         }
     }
 
