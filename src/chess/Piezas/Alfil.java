@@ -14,13 +14,17 @@ public class Alfil extends Pieza {
 
     public Alfil(Tablero tab, int corX, int corY, Color color) {
         super(tab, corX, corY, color);
-        //blanca
+        this.setImage(color);
+    }
+
+    private void setImage(Color color) {
+        String resourcePath;
         if (color == Color.RESOURCE_CON_COLOR) {
-            img = new javax.swing.ImageIcon(getClass().getResource("/icon/balf.png"));
-            //negra
+            resourcePath = "/icon/balf.png";
         } else {
-            img = img = new javax.swing.ImageIcon(getClass().getResource("/icon/nalf.png"));
+            resourcePath = "/icon/nalf.png";
         }
+        this.img = new javax.swing.ImageIcon(getClass().getResource(resourcePath));
     }
 
     @Override
@@ -48,14 +52,14 @@ public class Alfil extends Pieza {
         if (!(My - my == Mx - mx)) {
             return false;
         }
-        /*Variable diag it's made to know the relative position of the pieces.
+        /*Variable tipoDiagonal it's made to know the relative position of the pieces.
         * true =     left and down    or    right and up
         * false =    left and up      or    lefth and down*/
-        boolean diag = false;
+        boolean tipoDiagonal = false;
         if ((mx == corX && my == corY) || (Mx == corX && My == corY)) {
-            diag = true;
+            tipoDiagonal = true;
         }
-        if (diag) {
+        if (tipoDiagonal) {
             for (int i = 1; i < My - my; i++) {
                 if (tab.hayPieza(mx + i, my + i)) {
                     return false;

@@ -17,10 +17,8 @@ public class Dama extends Pieza {
 
     public Dama(Tablero tab, int corX, int corY, Color color) {
         super(tab, corX, corY, color);
-        //blanca
         if (color == Color.RESOURCE_CON_COLOR) {
             this.img = new javax.swing.ImageIcon(getClass().getResource("/icon/breina.png"));
-            //negra
         } else {
             this.img = new javax.swing.ImageIcon(getClass().getResource("/icon/nreina.png"));
         }

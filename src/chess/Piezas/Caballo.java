@@ -15,12 +15,10 @@ public class Caballo extends Pieza {
 
     public Caballo(Tablero tab, int corX, int corY, Color color) {
         super(tab, corX, corY, color);
-        //blanca
         if (color == Color.RESOURCE_CON_COLOR) {
             img = new javax.swing.ImageIcon(getClass().getResource("/icon/bcab.png"));
-            //negra
         } else {
-            img = img = new javax.swing.ImageIcon(getClass().getResource("/icon/ncab.png"));
+            img = new javax.swing.ImageIcon(getClass().getResource("/icon/ncab.png"));
         }
     }
 

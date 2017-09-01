@@ -16,15 +16,18 @@ public class Rey extends Pieza {
 
     public Rey(Tablero tab, int corX, int corY, Color color) {
         super(tab, corX, corY, color);
-        //blanca
         if (color == Color.RESOURCE_CON_COLOR) {
             img = new javax.swing.ImageIcon(getClass().getResource("/icon/brey.png"));
-            //negra
         } else {
-            img = img = new javax.swing.ImageIcon(getClass().getResource("/icon/nrey.png"));
+            img = new javax.swing.ImageIcon(getClass().getResource("/icon/nrey.png"));
         }
         movido = false;
         enroque = false;
+    }
+
+    public Rey(Tablero tab, int corX, int corY, Color color, Boolean movido){
+        super(tab, corX, corY, color);
+        this.movido = movido;
     }
 
     @Override
@@ -43,15 +46,20 @@ public class Rey extends Pieza {
             return true;
         }
         if (!movido && corX == 6 && corY == 7 && this.tab.hayPieza(7, 7) && (this.tab.getPieza(7, 7)) instanceof Torre) {
-            if (this.tab.getPieza(7, 7).puedeMover(5, 7) && !this.tab.amenaza(6,7,this.color== Color.RESOURCE_CON_COLOR)) {
-                enroque = true;
-                return true;
+            if (this.tab.getPieza(7, 7).puedeMover(5, 7) && !this.tab.amenaza(6, 7, this.color == Color.RESOURCE_CON_COLOR)) {
+                if (this.corX == 4 && this.corY == 7) {
+                    enroque = true;
+                    return true;
+                }
             }
         }
+
         if (!movido && corX == 6 && corY == 0 && this.tab.hayPieza(7, 0) && (this.tab.getPieza(7, 0)) instanceof Torre) {
-            if (this.tab.getPieza(7, 0).puedeMover(5, 0) && !this.tab.amenaza(6,0,this.color== Color.RESOURCE_CON_COLOR)) {
-                enroque = true;
-                return true;
+            if (this.tab.getPieza(7, 0).puedeMover(5, 0) && !this.tab.amenaza(6, 0, this.color == Color.RESOURCE_CON_COLOR)) {
+                if (this.corX == 4 && this.corY == 0) {
+                    enroque = true;
+                    return true;
+                }
             }
         }
 
@@ -73,13 +81,13 @@ public class Rey extends Pieza {
 
     @Override
     public Pieza copia(Tablero tab) {
-        Rey p = new Rey(tab, this.corX, this.corY, this.color);
+        Rey p = new Rey(tab, this.corX, this.corY, this.color, this.movido);
         return p;
     }
 
     public void mover(int x, int y) {
         super.mover(x, y);
-        if (this.color== Color.RESOURCE_CON_COLOR) {
+        if (this.color == Color.RESOURCE_CON_COLOR) {
             this.tab.setBRey(x, y);
             if (enroque) {
                 this.tab.mover(7, 7, 5, 7, true);
@@ -92,6 +100,7 @@ public class Rey extends Pieza {
             }
         }
         enroque = false;
+        movido = true;
     }
 
 }

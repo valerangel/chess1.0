@@ -59,8 +59,8 @@ public class Frame1 implements MouseListener {
     }
 
     private void doFirstClick(MouseEvent e) {
-        this.x = e.getX() * Tablero.OCHO / ventana.getWidth();
-        this.y = e.getY() * Tablero.OCHO / ventana.getHeight();
+        this.x = e.getX() * Tablero.NUMEROCASILLAS / ventana.getWidth();
+        this.y = e.getY() * Tablero.NUMEROCASILLAS / ventana.getHeight();
         this.paintSelec();
         if (this.tab.hayPieza(x, y) && (this.tab.getPieza(x, y).getColor() == chess.Piezas.Color.RESOURCE_CON_COLOR) == this.tab.getTurno()) {
             selecc = !selecc;
@@ -69,8 +69,8 @@ public class Frame1 implements MouseListener {
     }
 
     private void doSecondClick(MouseEvent e) {
-        int xn = e.getX() * Tablero.OCHO / ventana.getWidth();
-        int yn = e.getY() * Tablero.OCHO / ventana.getHeight();
+        int xn = e.getX() * Tablero.NUMEROCASILLAS / ventana.getWidth();
+        int yn = e.getY() * Tablero.NUMEROCASILLAS / ventana.getHeight();
 
         if (x != xn || y != yn) {
             this.tab.mover(x, y, xn, yn);
@@ -100,8 +100,8 @@ public class Frame1 implements MouseListener {
         Graphics g = ventana.getGraphics();
         g.setColor(Color.white);
         g.fillRect(0, 0, ventana.getWidth(), ventana.getHeight());
-        for (int i = 0; i < Tablero.OCHO; i++) {
-            for (int j = 0; j < Tablero.OCHO; j++) {
+        for (int i = 0; i < Tablero.NUMEROCASILLAS; i++) {
+            for (int j = 0; j < Tablero.NUMEROCASILLAS; j++) {
                 this.pintarCasilla(i, j);
             }
         }
@@ -112,8 +112,8 @@ public class Frame1 implements MouseListener {
         if ((j + i) % 2 == 1) {
             Graphics g = ventana.getGraphics();
             g.setColor(Color.gray);
-            g.fillRect(i * ventana.getWidth() / Tablero.OCHO, j * ventana.getHeight() / Tablero.OCHO,
-                    ventana.getWidth() / Tablero.OCHO, ventana.getHeight() / Tablero.OCHO);
+            g.fillRect(i * ventana.getWidth() / Tablero.NUMEROCASILLAS, j * ventana.getHeight() / Tablero.NUMEROCASILLAS,
+                    ventana.getWidth() / Tablero.NUMEROCASILLAS, ventana.getHeight() / Tablero.NUMEROCASILLAS);
         }
 
         if (this.tab.hayPieza(i, j)) {
@@ -124,13 +124,12 @@ public class Frame1 implements MouseListener {
     private void paintSelec() {
         this.paint();
         Graphics g = ventana.getGraphics();
-        //Brown
         g.setColor(new Color(200, 200, 150));
         if (tab.getTurno()) {
             g.setColor(Color.CYAN);
         }
-        g.fillRect(x * ventana.getWidth() / Tablero.OCHO, y * ventana.getHeight() / Tablero.OCHO,
-                ventana.getWidth() / Tablero.OCHO, ventana.getHeight() / Tablero.OCHO);
+        g.fillRect(x * ventana.getWidth() / Tablero.NUMEROCASILLAS, y * ventana.getHeight() / Tablero.NUMEROCASILLAS,
+                ventana.getWidth() / Tablero.NUMEROCASILLAS, ventana.getHeight() / Tablero.NUMEROCASILLAS);
         if (this.tab.hayPieza(x, y)) {
             pintarPieza(x, y);
         }
@@ -141,22 +140,20 @@ public class Frame1 implements MouseListener {
         Graphics g = ventana.getGraphics();
         int corrector = 4;
         Image image = (this.tab.getPieza(i, j)).getImageIcon().getImage();
-        g.drawImage(image, i * ventana.getWidth() / Tablero.OCHO + corrector, j * ventana.getHeight() / Tablero.OCHO + corrector,
-                ventana.getWidth() / Tablero.OCHO - 2 * corrector, ventana.getHeight() / Tablero.OCHO - 2 * corrector, marco);
+        g.drawImage(image, i * ventana.getWidth() / Tablero.NUMEROCASILLAS + corrector, j * ventana.getHeight() / Tablero.NUMEROCASILLAS + corrector,
+                ventana.getWidth() / Tablero.NUMEROCASILLAS - 2 * corrector, ventana.getHeight() / Tablero.NUMEROCASILLAS - 2 * corrector, marco);
     }
 
     private void comprobarMov(int x, int y) {
         Graphics g = ventana.getGraphics();
-        for (int j = 0; j < Tablero.OCHO; j++) {
-            for (int i = 0; i < Tablero.OCHO; i++) {
+        for (int j = 0; j < Tablero.NUMEROCASILLAS; j++) {
+            for (int i = 0; i < Tablero.NUMEROCASILLAS; i++) {
                 if (this.tab.getPieza(x, y).puedeMover(i, j)) {
-                    //low green
                     Color c = new Color(0, 255, 0, 50);
                     g.setColor(c);
-                    g.fillRect(i * ventana.getWidth() / Tablero.OCHO, j * ventana.getHeight() / Tablero.OCHO,
-                            ventana.getWidth() / Tablero.OCHO, ventana.getHeight() / Tablero.OCHO);
+                    g.fillRect(i * ventana.getWidth() / Tablero.NUMEROCASILLAS, j * ventana.getHeight() / Tablero.NUMEROCASILLAS,
+                            ventana.getWidth() / Tablero.NUMEROCASILLAS, ventana.getHeight() / Tablero.NUMEROCASILLAS);
                 }
-                System.out.println("");
             }
         }
     }

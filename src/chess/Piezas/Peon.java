@@ -18,12 +18,10 @@ public class Peon extends Pieza {
 
     public Peon(Tablero tab, int corX, int corY, Color color) {
         super(tab, corX, corY, color);
-        //blanca
         if (color== Color.RESOURCE_CON_COLOR) {
             img = new javax.swing.ImageIcon(getClass().getResource("/icon/bpawn.png"));
-            //negra
         } else {
-            img = img = new javax.swing.ImageIcon(getClass().getResource("/icon/npawn.png"));
+             img = new javax.swing.ImageIcon(getClass().getResource("/icon/npawn.png"));
         }
         primerMov = true;
     }

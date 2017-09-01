@@ -17,7 +17,7 @@ public class Tablero {
     private int[] brey;
     private int[] nrey;
     private boolean tablero;
-    public static int OCHO = 8;
+    public static int NUMEROCASILLAS = 8;
 
     public Tablero() {
         this.tablero = true;

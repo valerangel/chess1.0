@@ -14,12 +14,11 @@ public class Torre extends Pieza {
 
     public Torre(Tablero tab, int corX, int corY, Color color) {
         super(tab, corX, corY, color);
-        //blanca
         if (color == Color.RESOURCE_CON_COLOR) {
             img = new javax.swing.ImageIcon(getClass().getResource("/icon/btor.png"));
-            //negra
+
         } else {
-            img = img = new javax.swing.ImageIcon(getClass().getResource("/icon/ntor.png"));
+            img = new javax.swing.ImageIcon(getClass().getResource("/icon/ntor.png"));
         }
     }
 
